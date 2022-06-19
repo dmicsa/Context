@@ -270,7 +270,7 @@ cout << extract<I>(c, "I", DIM_WHERE) << '\n';
 </p>
 </details>
 
-<details><summary>Example 6  (requires v0.0.7): Swap dynmic variables in a scope.</summary>
+<details><summary>Example 6  (requires v0.0.7): Swap dynamic variables in a scope.</summary>
 <p>
 
 ```cpp
