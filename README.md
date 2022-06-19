@@ -2,6 +2,8 @@
 
 A generic Context class to store globals and other settings w/o changing function's definition using void* pointers.
 
+It uses C++20 but can be easily bakcported to older versions.
+
 It is one header file and some examples.
 
 Some mechanism for protection are implemented.
