@@ -12,22 +12,28 @@
 using namespace DIM;
 using namespace std;
 
+namespace DIM
+{
+
+} // namespace DIM
+
 int main()
 {
 	try
 	{
 		Context c;
 		I n{10};
-		c["Int"] = makePair(n);
-		R r{10.12};
-		c["Real64"] = makePair(r);
+		c["I"] = makePair(n);
+		R r{-22.212};
+		c["R"] = makePair(r);
 		S s{"Cucu"};
-		c["String"] = makePair(s);
+		c["S"] = makePair(s);
 
-		cout << extract<I>(c, "Int", DIM_WHERE) << '\n';
-		cout << extract<R>(c, "Real64", DIM_WHERE) << '\n';
-		cout << extract<S>(c, "String", DIM_WHERE) << '\n';
-		cout << extract<S>(c, "WrongKey", DIM_WHERE) << '\n'; // WrongKey error!
+		print(c);
+		cout << extract<I>(c, "I", DIM_WHERE) << '\n';
+		cout << extract<R>(c, "R", DIM_WHERE) << '\n';
+		cout << extract<S>(c, "S", DIM_WHERE) << '\n';
+		// cout << extract<S>(c, "WrongKey", DIM_WHERE) << '\n'; // WrongKey error!
 		// cout << extract<R>(c, "String", DIM_WHERE) << '\n';//WrongType error!
 	}
 	catch (const std::exception &e)

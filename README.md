@@ -1,14 +1,19 @@
 # Context
 
-A generic Context class to store globals using void* pointers.
+A generic Context class to store globals and other settings w/o changing function's definition using void* pointers.
+
 It is one header file and some examples.
+
 Some mechanism for protection via policies are implemented.
+
 Free to use.
 
-<details><summary>Example 1: Wrong Returned Type.</summary>
+<details><summary>Example 1  (requires v0.0.2): Wrong Returned Type.</summary>
 <p>
 
 ```cpp
+#include "Context.hpp"
+
 using namespace DIM;
 using namespace std;
 
@@ -52,10 +57,12 @@ EXCEPTION : "Key: 'String' assigned to a different type.", From: "main", file: "
 </p>
 </details>
 
-<details><summary>Example 2: Wrong Key.</summary>
+<details><summary>Example 2 (requires v0.0.2): Wrong Key.</summary>
 <p>
 
 ```cpp
+#include "Context.hpp"
+
 using namespace DIM;
 using namespace std;
 
@@ -97,3 +104,44 @@ EXCEPTION : "Key: 'WrongKey' not found in context.", From: "main", file: "Main.c
 ```
 </p>
 </details>
+
+<details><summary>Example 3 (requires v0.0.5): Context content.</summary>
+<p>
+
+```cpp
+#include "Context.hpp"
+
+using namespace DIM;
+using namespace std;
+
+	try
+	{
+		Context c;
+		I n{10};
+		c["I"] = makePair(n);
+		R r{-22.212};
+		c["R"] = makePair(r);
+		S s{"Cucu"};
+		c["S"] = makePair(s);
+
+		print(c);
+		cout << extract<I>(c, "I", DIM_WHERE) << '\n';
+		cout << extract<R>(c, "R", DIM_WHERE) << '\n';
+		cout << extract<S>(c, "S", DIM_WHERE) << '\n';		
+	}
+	catch (...){}//as before	
+```
+```
+Context content:
+{
+  I : int,
+  R : double,
+  S : class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,
+}
+10
+-22.212
+Cucu
+```
+</p>
+</details>
+

@@ -35,7 +35,7 @@ namespace DIM
 	{
 	public:
 		SV function_, file_;
-		long line_{-1};
+		long long line_{-1};
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ namespace DIM
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	class Context : public std::map<S, std::pair<V *, S>>
 	{
-		static inline const S version_{"0.0.4"};
+		static inline const S version_{"0.0.5"};
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,6 +83,28 @@ namespace DIM
 		return *reinterpret_cast<T *>(it->second.first);
 	}
 	template <class T> auto makePair(T &t) { return std::make_pair(&t, typeid(T).name()); }
-
 	S toS(const S &what, const Where &w) { return std::format("EXCEPTION : \"{}\", {}", what, toS(w)); }
+	inline S repeat(const SV v, size_t times)
+	{
+		S s;
+		for (size_t n(0); n < times; n++)
+			s += v;
+		return s;
+	}
+	inline S leftPad(const S &v, size_t length, const SV paddingString = " ")
+	{
+		return repeat(paddingString, length - v.size()) + v;
+	}
+	inline V print(const Context &c)
+	{
+		size_t maxLength{0};
+		for (auto v : c)
+			maxLength = std::max(maxLength, v.first.size());
+		std::cout << "\nContext content: \n{\n";
+		for (auto v : c)
+		{
+			std::cout << leftPad(v.first, maxLength + 2) << " : " << v.second.second << ',' << '\n';
+		}
+		std::cout << "}\n";
+	}
 } // namespace DIM
