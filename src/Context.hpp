@@ -20,6 +20,8 @@
 #define DIM_UNIQUE_NAME(x) DIM_UNIQUE_NAME_1(x, __COUNTER__)
 #define DIM_WHERE                                                                                                                  \
 	Where { __func__, __FILE__, __LINE__ }
+#define DIM_AUTO_VARIABLE_HOLDER(Type, c, variableName, t)                                                                         \
+	::DIM::VariableHolder<Type> DIM_UNIQUE_NAME(vh)(c, variableName, t, DIM_WHERE);
 
 namespace DIM
 {
@@ -49,7 +51,7 @@ namespace DIM
 	inline S toS(const Where &w)
 	{
 		const auto fileName{std::filesystem::path(w.file_).filename().string()};
-		return std::format("From: \"{}\", file: \"{}\", line: {}.", w.function_, fileName, w.line_);
+		return std::format("From: \"{}()\", file: \"{}\", line: {}.", w.function_, fileName, w.line_);
 	}
 
 	inline V throwException(const S &name, const Where &w)
@@ -67,7 +69,7 @@ namespace DIM
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	class Context : public std::map<S, std::pair<V *, S>>
 	{
-		static inline const S version_{"0.0.5"};
+		static inline const S version_{"0.0.6"};
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,4 +109,33 @@ namespace DIM
 		}
 		std::cout << "}\n";
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	template <class T> class VariableHolder
+	{
+	public:
+		VariableHolder(Context &c, const SV variableName, const T &t, const Where &w)
+		    : c_(c), variableName_(variableName), t_(t), w_(w)
+		{
+			if (c_.find(variableName_) != c_.end())
+				throwException(std::format("Variable: '{}' already registered. Use a simple assignment if "
+							   "you want to change it.",
+						   variableName_),
+				    w_);
+			c[variableName_] = makePair(t_);
+		}
+
+		~VariableHolder()
+		{
+			if (c_.find(variableName_) == c_.end())
+				throwException(std::format("Variable: '{}' already erased.", variableName_), w_);
+			c_.erase(variableName_);
+		}
+
+		Context &c_;
+		const S variableName_;
+		const Where w_;
+		T t_;
+	};
+
 } // namespace DIM

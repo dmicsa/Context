@@ -42,17 +42,18 @@ int main()
 	{
 		cout << "\n\n" << toS(e.what_, e.where_) << "\n\n";
 	}
+
 	return 0;
 }
 ```
 ```
-Output:
+OUTPUT:
 10
 10.12
 Cucu
 
 
-EXCEPTION : "Key: 'String' assigned to a different type.", From: "main", file: "Main.cpp", line: 31.
+EXCEPTION : "Key: 'String' assigned to a different type.", From: "main()", file: "Main.cpp", line: 31.
 ```
 </p>
 </details>
@@ -91,16 +92,18 @@ int main()
 	{
 		cout << "\n\n" << toS(e.what_, e.where_) << "\n\n";
 	}
+
 	return 0;
 }
 ```
 ```
+OUTPUT:
 10
 10.12
 Cucu
 
 
-EXCEPTION : "Key: 'WrongKey' not found in context.", From: "main", file: "Main.cpp", line: 30.
+EXCEPTION : "Key: 'WrongKey' not found in context.", From: "main()", file: "Main.cpp", line: 30.
 ```
 </p>
 </details>
@@ -129,9 +132,13 @@ using namespace std;
 		cout << extract<R>(c, "R", DIM_WHERE) << '\n';
 		cout << extract<S>(c, "S", DIM_WHERE) << '\n';		
 	}
-	catch (...){}//as before	
+	catch (...){}//as before
+
+	return 0;
+}	
 ```
 ```
+OUTPUT:
 Context content:
 {
   I : int,
@@ -145,3 +152,128 @@ Cucu
 </p>
 </details>
 
+
+<details><summary>Example 4 (requires v0.0.6): VariableHolder.</summary>
+<p>
+
+```cpp
+#include "Context.hpp"
+
+using namespace DIM;
+using namespace std;
+
+int main()
+{
+	try
+	{
+		Context c;
+		cout << "----------------\n";
+		{ // using manual names for VariableHolder
+			VariableHolder<I> vh1(c, "I1", 10, DIM_WHERE);
+			VariableHolder<I> vh2(c, "I2", 15, DIM_WHERE);
+			cout << "Checkpoint: A";
+			print(c);
+			cout << extract<I>(c, "I1", DIM_WHERE) << '\n';
+			cout << extract<I>(c, "I2", DIM_WHERE) << '\n';
+		}
+		cout << "Checkpoint: B";
+		print(c);
+
+		cout << "----------------\n";
+		{ // using automatic names.VariableHolder
+			DIM_AUTO_VARIABLE_HOLDER(I, c, "I1", 20);
+			DIM_AUTO_VARIABLE_HOLDER(I, c, "I2", 25);
+			cout << "Checkpoint: C";
+			print(c);
+			cout << extract<I>(c, "I1", DIM_WHERE) << '\n';
+			cout << extract<I>(c, "I2", DIM_WHERE) << '\n';
+		}
+		cout << "Checkpoint: D";
+		print(c);
+
+		cout << "----------------\n";
+		{ // using automatic names.VariableHolder
+			DIM_AUTO_VARIABLE_HOLDER(I, c, "I1", 20);
+			DIM_AUTO_VARIABLE_HOLDER(I, c, "I2", 25);
+			cout << "Checkpoint: E";
+			print(c);
+			cout << extract<I>(c, "I1", DIM_WHERE) << '\n';
+			cout << extract<I>(c, "I2", DIM_WHERE) << '\n';
+
+			cout << "Assign them to new values.\n";
+			extract<I>(c, "I1", DIM_WHERE) = 21;
+			extract<I>(c, "I2", DIM_WHERE) = 26;
+			cout << "Checkpoint: F";
+			print(c);
+			cout << extract<I>(c, "I1", DIM_WHERE) << '\n';
+			cout << extract<I>(c, "I2", DIM_WHERE) << '\n';
+		}
+		cout << "Checkpoint: G";
+		print(c);
+
+		cout << "----------------\n";
+		cout << "Checkpoint: H";
+		cout << extract<I>(c, "I2", DIM_WHERE) << '\n'; // Throws!
+	}
+	catch (...){}//as before
+
+	return 0;
+}	
+```
+```
+OUTPUT:
+----------------
+Checkpoint: A
+Context content:
+{
+  I1 : int,
+  I2 : int,
+}
+10
+15
+Checkpoint: B
+Context content:
+{
+}
+----------------
+Checkpoint: C
+Context content:
+{
+  I1 : int,
+  I2 : int,
+}
+20
+25
+Checkpoint: D
+Context content:
+{
+}
+----------------
+Checkpoint: E
+Context content:
+{
+  I1 : int,
+  I2 : int,
+}
+20
+25
+Assign them to new values.
+Checkpoint: F
+Context content:
+{
+  I1 : int,
+  I2 : int,
+}
+21
+26
+Checkpoint: G
+Context content:
+{
+}
+----------------
+Checkpoint: H
+
+EXCEPTION : "Key: 'I2' not found in context.", From: "main()", file: "Main.cpp", line: 66.
+```
+</p>
+</details>
