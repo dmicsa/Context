@@ -138,6 +138,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="src\Tests\Ex1.inc" />
+    <None Include="src\Tests\Ex2.inc" />
+    <None Include="src\Tests\Ex3.inc" />
+    <None Include="src\Tests\Ex4.inc" />
+    <None Include="src\Tests\Ex5.inc" />
+    <None Include="src\Tests\Ex6.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Tests">
+      <UniqueIdentifier>{10862a30-d801-4ba6-8905-f4bda3108df3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -26,6 +29,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Tests\Ex1.inc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Tests\Ex2.inc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Tests\Ex3.inc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Tests\Ex4.inc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Tests\Ex5.inc">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Tests\Ex6.inc">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
