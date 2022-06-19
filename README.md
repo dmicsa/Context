@@ -7,6 +7,7 @@ Free to use.
 
 <details><summary>Example 1: Wrong Returned Type.</summary>
 <p>
+
 ```cpp
 using namespace DIM;
 using namespace std;
@@ -53,6 +54,7 @@ EXCEPTION : "Key: 'String' assigned to a different type.", From: "main", file: "
 
 <details><summary>Example 2: Wrong Key.</summary>
 <p>
+
 ```cpp
 using namespace DIM;
 using namespace std;
