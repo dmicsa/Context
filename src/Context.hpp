@@ -22,6 +22,7 @@
 	Where { __func__, __FILE__, __LINE__ }
 #define DIM_AUTO_VARIABLE_HOLDER(Type, c, variableName, t)                                                                         \
 	::DIM::VariableHolder<Type> DIM_UNIQUE_NAME(vh)(c, variableName, t, DIM_WHERE);
+#define DIM_AUTO_SWAP_KEY(p1, p2) ::DIM::SwapKey DIM_UNIQUE_NAME(ck)(p1, p2);
 
 namespace DIM
 {
@@ -69,7 +70,7 @@ namespace DIM
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	class Context : public std::map<S, std::pair<V *, S>>
 	{
-		static inline const S version_{"0.0.6"};
+		static inline const S version_{"0.0.7"};
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,4 +139,13 @@ namespace DIM
 		T t_;
 	};
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	template <class T> class SwapKey
+	{
+	public:
+		SwapKey(T &p1, void *&p2) : p1_(p1), p2_(*(T *)p2) { std::swap(p1_, p2_); }
+		~SwapKey() { std::swap(p1_, p2_); }
+		T &p1_;
+		T &p2_;
+	};
 } // namespace DIM

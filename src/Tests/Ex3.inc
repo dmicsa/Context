@@ -1,12 +1,13 @@
 Context c;
+
 I n{10};
-c["I"] = makePair(n);
+c["i"] = makePair(n);
 R r{-22.212};
-c["R"] = makePair(r);
+c["r"] = makePair(r);
 S s{"Cucu"};
-c["S"] = makePair(s);
+c["s"] = makePair(s);
 
 print(c);
-cout << extract<I>(c, "I", DIM_WHERE) << '\n';
-cout << extract<R>(c, "R", DIM_WHERE) << '\n';
-cout << extract<S>(c, "S", DIM_WHERE) << '\n';
+cout << extract<I>(c, "i", DIM_WHERE) << '\n';
+cout << extract<R>(c, "r", DIM_WHERE) << '\n';
+cout << extract<S>(c, "s", DIM_WHERE) << '\n';
