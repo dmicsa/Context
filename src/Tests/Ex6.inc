@@ -1,6 +1,5 @@
 struct OStream
 {
-public:
 	virtual V print(const SV) = 0;
 	virtual ~OStream() {}
 };

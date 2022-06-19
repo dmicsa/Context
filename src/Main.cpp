@@ -41,12 +41,20 @@ namespace DIM
 		T *p2_;
 	};
 } // namespace DIM
+
+void use1(Context &, ...) {}
+void use2(Context &, ...) {}
+
 int main()
 {
 	try
 	{
 // include here the "Ex*.inc" files!
 #include "Tests/Ex4.inc"
+
+		// Examples of calling other functions with the context
+		use1(c);
+		use2(c, 10, 22, "a string");
 	}
 	catch (const std::exception &e)
 	{

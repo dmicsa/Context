@@ -17,12 +17,19 @@ Free to use.
 using namespace DIM;
 using namespace std;
 
+void use1(Context&, ...) {}
+void use2(Context&, ...) {}
+
 int main()
 {
 	try
 	{
 		// include here the "Ex*.inc" files!
 #include "Tests/Ex1.inc"
+
+		//Examples of calling other functions with the context.
+		use1(c);
+ 		use2(c, 10, 22, "a string");
 	}
 	catch (const std::exception &e)
 	{
