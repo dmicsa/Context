@@ -1,20 +1,13 @@
 # Context
 
 A generic Context class to store globals using void* pointers.
-
+It is one header file and some examples.
 Some mechanism for protection via policies are implemented.
-
 Free to use.
 
 <details><summary>Example 1: Wrong Returned Type.</summary>
 <p>
-
-#### We can hide anything, even code!
-
 ```cpp
-   puts "Hello World"
-
-
 using namespace DIM;
 using namespace std;
 
@@ -60,13 +53,7 @@ EXCEPTION : "Key: 'String' assigned to a different type.", From: "main", file: "
 
 <details><summary>Example 2: Wrong Key.</summary>
 <p>
-
-#### We can hide anything, even code!
-
 ```cpp
-   puts "Hello World"
-
-
 using namespace DIM;
 using namespace std;
 
