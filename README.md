@@ -1,5 +1,11 @@
 # Context
 
+<style>
+r { color: Red }
+o { color: Orange }
+g { color: Green }
+</style>
+
 A generic Context class to store globals and other settings w/o changing function's definition using void* pointers.
 
 It uses C++20 but can be easily bakcported to older versions.
@@ -8,7 +14,10 @@ It is one header file and some examples.
 
 Some mechanism for protection are implemented.
 
-Free to use.
+Free to use under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). 
+
+<o>Next are collapsible regions.</o>
+
 
 <details><summary>The main()  (requires v0.0.2): Used to invoke the examples.</summary>
 <p>

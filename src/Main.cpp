@@ -50,7 +50,7 @@ int main()
 	try
 	{
 // include here the "Ex*.inc" files!
-#include "Tests/Ex4.inc"
+#include "Tests/Ex2.inc"
 
 		// Examples of calling other functions with the context
 		use1(c);
